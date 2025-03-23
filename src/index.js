@@ -51,13 +51,6 @@ client.on("messageCreate", (message) => {
 
 // slash commands
 client.on('interactionCreate', async (interaction) => {
-    // if(!interaction.isChatInputCommand()) {
-    //     return;
-    // }
-    // if(!interaction.isButton()) {
-    //     return;
-    // }
-
     // button stuff
     try {
         if (interaction.isButton()) {
@@ -81,35 +74,36 @@ client.on('interactionCreate', async (interaction) => {
             }
     
             await interaction.member.roles.add(role);
-            await interaction.editReply(`The role ${role} has been added`);
+            await interaction.editReply(`The role ${role} has been added`); // have to use template literal, thats just how to dispaly the role correctly
         }
     } catch (error) {
         console.log(error);
     }
 
     // slash command stuff
-    if (interaction.commandName === "hey") {
-        interaction.reply("hey");
-    } else if (interaction.commandName === "ping") {
-        interaction.reply("pong");
-    } else if (interaction.commandName === "embed") {
-        // chain methods to define the embed
-        const embed = new EmbedBuilder()
-            .setTitle("Embed title")
-            .setDescription("This is an embed description")
-            .setColor("Random")
-            .addFields({
-                name: "Field title",
-                value: "Some random value",
-                inline: true
-            }, {
-                name: "Field title 2",
-                value: "Some random value 2",
-                inline: true
-            });
-            interaction.reply({ embeds: [embed] });
-    } else {
+    if(interaction.isCommand()) {
         console.log(interaction.user.username, "used the slash command /" + interaction.commandName);
+        if (interaction.commandName === "hey") {
+            interaction.reply("hey");
+        } else if (interaction.commandName === "ping") {
+            interaction.reply("pong");
+        } else if (interaction.commandName === "embed") {
+            // chain methods to define the embed
+            const embed = new EmbedBuilder()
+                .setTitle("Embed title")
+                .setDescription("This is an embed description")
+                .setColor("Random")
+                .addFields({
+                    name: "Field title",
+                    value: "Some random value",
+                    inline: true
+                }, {
+                    name: "Field title 2",
+                    value: "Some random value 2",
+                    inline: true
+                });
+                interaction.reply({ embeds: [embed] });
+        }
     }
 })
 
