@@ -3,7 +3,7 @@
 
 require("dotenv").config();
 
-const { Client, IntentsBitField } = require("discord.js");
+const { Client, IntentsBitField, EmbedBuilder } = require("discord.js");
 
 const client = new Client({
     intents: [
@@ -29,8 +29,22 @@ client.on("messageCreate", (message) => {
 
     if (message.content === "hello") {
         message.reply("hello");
-    }
-    else {
+    } else if (message.content === "embed") {
+        const embed = new EmbedBuilder()
+            .setTitle("Embed title")
+            .setDescription("This is an embed description")
+            .setColor("Random")
+            .addFields({
+                name: "Field title",
+                value: "Some random value",
+                inline: true
+            }, {
+                name: "Field title 2",
+                value: "Some random value 2",
+                inline: true
+            });
+            message.channel.send({ embeds: [embed] });
+    } else {
         console.log(message.author.username, "said", message.content);
     }
 })
@@ -44,9 +58,24 @@ client.on('interactionCreate', (interaction) => {
     // console.log(interaction);
     if (interaction.commandName === "hey") {
         interaction.reply("hey");
-    
     } else if (interaction.commandName === "ping") {
         interaction.reply("pong");
+    } else if (interaction.commandName === "embed") {
+        // chain methods to define the embed
+        const embed = new EmbedBuilder()
+            .setTitle("Embed title")
+            .setDescription("This is an embed description")
+            .setColor("Random")
+            .addFields({
+                name: "Field title",
+                value: "Some random value",
+                inline: true
+            }, {
+                name: "Field title 2",
+                value: "Some random value 2",
+                inline: true
+            });
+            interaction.reply({ embeds: [embed] });
     } else {
         console.log(interaction.user.username, "used the slash command /" + interaction.commandName);
     }

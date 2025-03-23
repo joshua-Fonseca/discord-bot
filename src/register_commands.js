@@ -15,7 +15,10 @@ const commands = [
         name: "ping",
         description: "pong!",
     },
-    
+    {
+        name: "embed",
+        description: "i send an embed",
+    },
 ];
 
 const rest = new REST({ version: "10" }).setToken(process.env.TOKEN);
