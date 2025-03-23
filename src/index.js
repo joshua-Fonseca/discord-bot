@@ -1,7 +1,7 @@
-require("dotenv").config();
-
 // https://discordjs.guide/popular-topics/intents.html#privileged-intents
 // https://discord.com/developers/docs/events/gateway
+
+require("dotenv").config();
 
 const { Client, IntentsBitField } = require("discord.js");
 
