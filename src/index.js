@@ -50,12 +50,44 @@ client.on("messageCreate", (message) => {
 })
 
 // slash commands
-client.on('interactionCreate', (interaction) => {
-    if(!interaction.isChatInputCommand()) {
-        return;
+client.on('interactionCreate', async (interaction) => {
+    // if(!interaction.isChatInputCommand()) {
+    //     return;
+    // }
+    // if(!interaction.isButton()) {
+    //     return;
+    // }
+
+    // button stuff
+    try {
+        if (interaction.isButton()) {
+            await interaction.deferReply({ ephemeral: true });
+    
+            const role = interaction.guild.roles.cache.get(interaction.customId);
+    
+            if (!role) {
+                interaction.editReply({
+                    content: "I couldn't find that role",
+                })
+                return;
+            }
+    
+            const has_role = interaction.member.roles.cache.has(role.id);
+    
+            if (has_role) {
+                await interaction.member.roles.remove(role);
+                await interaction.editReply(`The role ${role} has been removed`); // have to use template literal, thats just how to dispaly the role correctly
+                return;
+            }
+    
+            await interaction.member.roles.add(role);
+            await interaction.editReply(`The role ${role} has been added`);
+        }
+    } catch (error) {
+        console.log(error);
     }
 
-    // console.log(interaction);
+    // slash command stuff
     if (interaction.commandName === "hey") {
         interaction.reply("hey");
     } else if (interaction.commandName === "ping") {
