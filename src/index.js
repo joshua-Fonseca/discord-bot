@@ -21,17 +21,34 @@ client.on("ready", (c) => {
 
 // https://discord.js.org/docs/packages/discord.js/14.18.0/Message:Class
 client.on("messageCreate", (message) => {
-    // console.log(message.content);
-
     if (message.author.bot) {
         return;
     }
+
+    // console.log(message.content);
 
     if (message.content === "hello") {
         message.reply("hello");
     }
     else {
         console.log(message.author.username, "said", message.content);
+    }
+})
+
+// slash commands
+client.on('interactionCreate', (interaction) => {
+    if(!interaction.isChatInputCommand()) {
+        return;
+    }
+
+    // console.log(interaction);
+    if (interaction.commandName === "hey") {
+        interaction.reply("hey");
+    
+    } else if (interaction.commandName === "ping") {
+        interaction.reply("pong");
+    } else {
+        console.log(interaction.user.username, "used the slash command /" + interaction.commandName);
     }
 })
 
