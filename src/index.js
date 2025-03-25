@@ -49,7 +49,7 @@ client.on("messageCreate", (message) => {
     }
 })
 
-// slash commands
+// "interactions"
 client.on('interactionCreate', async (interaction) => {
     // button stuff
     try {
