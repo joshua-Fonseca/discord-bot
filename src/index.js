@@ -3,7 +3,7 @@
 
 require("dotenv").config();
 
-const { Client, IntentsBitField, EmbedBuilder } = require("discord.js");
+const { Client, IntentsBitField, EmbedBuilder, ActivityType } = require("discord.js");
 
 const client = new Client({
     intents: [
@@ -17,7 +17,36 @@ const client = new Client({
 client.on("ready", (c) => {
     // console.log("ready");
     console.log(c.user.tag, "is online");
+
+    client.user.setActivity({
+        name: "EVERYTHING",
+        type: ActivityType.Watching
+    });
+
+    // setInterval(() => {
+    //     let random = Math.random() * status.length;
+    //     client.user.setActivity(status[random]);
+    // }, 20000);
 });
+
+// let status = [
+//     {
+//         name: "test 0"
+//     },
+//     {
+//         name: "test 1",
+//         type: ActivityType.Streaming,
+//         url: "https://www.youtube.com/watch?v=__-xx_njd9g"
+//     },
+//     {
+//         name: "test 2",
+//         type: ActivityType.Watching
+//     },
+//     {
+//         name: "test 3",
+//         type: ActivityType.Listening
+//     }
+// ]
 
 // https://discord.js.org/docs/packages/discord.js/14.18.0/Message:Class
 client.on("messageCreate", (message) => {
