@@ -1,6 +1,8 @@
 // https://discordjs.guide/popular-topics/intents.html#privileged-intents
 // https://discord.com/developers/docs/events/gateway
 
+// this file is for sending a message to pick/remove roles
+
 require("dotenv").config();
 
 const { Client, IntentsBitField, EmbedBuilder, ActionRowBuilder, ButtonBuilder, ButtonStyle } = require("discord.js");
