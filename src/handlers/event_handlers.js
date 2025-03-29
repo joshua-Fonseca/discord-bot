@@ -21,7 +21,7 @@ module.exports = (client) => {
         client.on(event_name, async (arg) => {
             for (const event_file of event_files) {
                 const event_function = require(event_file);
-                // console.log(event_function);
+                console.log(event_function, event_file, "\n");
                 await event_function(client, arg);
             }
         })
